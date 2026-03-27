@@ -1,0 +1,137 @@
+(* README *)
+                  v
+           \             /
+
+              ▁▁▁▁▁▁▁▁▁
+     `       ╱         ╲      '
+            ╱  ╲        ╲
+           ╱    ╲   ╱    ╲
+    _     ╱  ▁▁▁     ▁▁▁  ╲    _
+          ╲               ╱
+           ╲    ╱   ╲    ╱
+            ╲        ╲  ╱
+     '       ╲▁▁▁▁▁▁▁▁▁╱      `
+     
+      │      ╭╮     │ ╱     │
+     ╶┼╴     ╰╯     │╱     ─┼─ 
+      │   │╱ │ ┌──╮ │╲  ╭──╮│  ╭──╮
+      │   │  │ │  │ │ ╲ ├──┘│  ╰──╮
+      ╰─╯ ╵  ╵ ╵  ╵ ╵  ╲╰──╴╰─╯╰──╯
+
+1 - About
+    -----
+
+    "trinkets" is a small collection
+    of self-contained tools for
+    browser layout, monospaced text
+    shaping, and marked-up source
+    rendering.
+
+    These can be html+js+css, py, etc.
+
+    The tools favor small scope,
+    direct use, and lightweight
+    implementation. Most components
+    are designed to run standalone,
+    either in the browser or from a
+    minimal local script.
+
+
+2 - Tree
+    ----
+x
+.
+├── README
+│  ┌─────────────────────────────────┐
+│  │ This file.                      │
+│  └─────────────────────────────────┘
+│
+├── .gitignore
+│  ┌─────────────────────────────────┐
+│  │ Ignores macOS, editor, and      │
+│  │ common temporary files.         │
+│  └─────────────────────────────────┘
+│
+├── monosetter
+│  ╭───╯
+│  │
+│  ├── MonoTypesetter.html
+│  │  ┌──────────────────────────────┐
+│  │  │ Standalone browser tool for  │
+│  │  │ monospaced text formatting.  │
+│  │  │ Choose a style, paste text,  │
+│  │  │ and copy the result.         │
+│  │  └──────────────────────────────┘
+│  │
+│  ╰── MonoStyles.json
+│   ┌────────────────────────────────┐
+│   │ Style presets and example      │
+│   │ inputs for the formatter.      │
+│   └────────────────────────────────┘
+│
+├── monotyper
+│  ╭───╯
+│  │  ┌──────────────────────────────┐
+│  │  │ Python toolchain for         │
+│  │  │ validating and rendering     │
+│  │  │ marked-up Rocq/Coq source    │
+│  │  │ files.                       │
+│  │  └──────────────────────────────┘
+│  │
+│  ├── __Monotyper.command
+│  │  ┌──────────────────────────────┐
+│  │  │ Convenience launcher for     │
+│  │  │ rendering `_INPUT` into      │
+│  │  │ `_OUTPUT`.                   │
+│  │  └──────────────────────────────┘
+│  │
+│  ├── _INPUT/
+│  ├── _OUTPUT/
+│  │  ┌──────────────────────────────┐
+│  │  │ Sample source and sample     │
+│  │  │ rendered output trees.       │
+│  │  └──────────────────────────────┘
+│  │
+│  ├── markup in-out
+│  │  ┌──────────────────────────────┐
+│  │  │ Scratch or reference markup  │
+│  │  │ material.                    │
+│  │  └──────────────────────────────┘
+│  │
+│  ╰── python/
+│   ┌────────────────────────────────┐
+│   │ Implementation modules for     │
+│   │ scanning, parsing, validating, │
+│   │ diagnostics, and rendering.    │
+│   └────────────────────────────────┘
+│
+└── css2letter
+   ╭───╯
+   │  ┌──────────────────────────────┐
+   │  │ Browser-based letter demo    │ 
+   │  │ with DIN-style layout,       │
+   │  │ pagination, and printable    │
+   │  │ output.                      │
+   │  └──────────────────────────────┘
+   │
+   ├── din5008.html
+   ├── din5008.css
+   ├── letter-content.js
+   ├── pagination-dropin.js
+   ├── total-pages.js
+   ├── signature.png
+   ├── din.png
+   └── archive/
+
+
+3 - Author
+    ------
+    
+    (c)
+    ╔════════╤═══════════════╗
+    ║ ╭╮╮╮─╮ │               ║
+    ║ ││││╭╯ │  Milan Rosko  ║
+    ║  ╯╯╯╰  │               ║
+    ╚════════╧═══════════════╝
+    www.milanrosko.com
+    hi "at" milanrosko "." com

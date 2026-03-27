@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DIN 5008 - 2 Pages (A4 Print)</title>
+  <link rel="stylesheet" media="all" href="din5008.css" />
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+  <div class="screen-only" style="width:210mm;margin:0 auto 8mm;display:flex;justify-content:flex-end;gap:6mm;">
+    <button type="button" onclick="window.print()">Print</button>
+  </div>
+  <div id="print-root">
+    <section class="page page--first">
+      <div class="print-area">
+        <!-- === PAGE 1 === -->
+        <div class="mark falz1"></div>
+        <div class="mark loch" ></div>
+        <div class="mark falz2" ></div>
+
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+
+        <header class="logo-header">
+          <div class="logo" aria-hidden="true">ACME</div>
+          <div style="position: absolute; left: 13mm; top: 3.6mm;">
+            <div style="font-weight: 300;margin: -0.25mm 0 0.5mm 0">
+              Walter Elias Disney
+            </div>
+            <div style="font-size:2.2mm;">
+              Producer & Entrepreneur
+            </div>
+          </div>
+        </header>
+        <div class="window">
+          <div class="return" data-key="returnLine"></div>
+          <div class="note" data-key="note"></div>
+          <div class="recipient" data-key="recipient"></div>
+        </div>
+        <dl class="info" id="info-block"></dl>
+        <div class="subject" data-key="subject"></div>
+        <div class="date" data-key="date"></div>
+        <main>
+          <div id="body-content"></div>
+          <ul id="body-list"></ul>
+          <div id="body-post"></div>
+          <div class="closing-block">
+            <div id="closing-text"></div>
+            <div class="signature" aria-hidden="true"></div>
+            <p class="signature-name" data-key="signatureName"></p>
+          </div>
+        </main>
+        <div class="pageno" data-total="2"></div>
+        <div class="footer">
+          <div class="column">
+            ACME Studio<br>
+            Hyperion Ave.<br>
+            Los Angeles, California
+          </div>
+          <div class="column">
+            Phone: +1 555 0108<br>
+            File: Letter Demo
+          </div>
+          <div class="column">
+            Sender: Walt Disney<br>
+            Recipient: Albert Einstein<br>
+            Template: CSS2Letter
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- === pagination scripts === -->
+  <script src="./pagination-dropin.js"></script>
+  <script src="./letter-content.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const setText = (selector, value) => {
+        const el = document.querySelector(selector);
+        if (el && value !== undefined && value !== null) {
+          el.textContent = value;
+        }
+      };
+
+      setText(".return", letterContent.window.returnLine);
+      setText(".note", letterContent.window.note);
+      setText(".recipient", letterContent.window.recipient);
+      setText(".subject", letterContent.subject);
+      setText(".date", letterContent.date);
+      setText(".signature-name", letterContent.signatureName);
+
+      const infoBlock = document.getElementById("info-block");
+      if (infoBlock && Array.isArray(letterContent.info)) {
+        letterContent.info.forEach(item => {
+          if (!item || !item.term) return;
+          const dt = document.createElement("dt");
+          dt.textContent = item.term;
+          const dd = document.createElement("dd");
+          dd.textContent = item.value ?? "";
+          infoBlock.appendChild(dt);
+          infoBlock.appendChild(dd);
+        });
+      }
+
+      const renderParagraphs = (id, texts) => {
+        const container = document.getElementById(id);
+        if (!container || !Array.isArray(texts)) return;
+        texts.forEach(text => {
+          if (text === null || text === undefined) return;
+          const p = document.createElement("p");
+          p.textContent = text;
+          container.appendChild(p);
+        });
+      };
+
+      const renderList = (id, items) => {
+        const container = document.getElementById(id);
+        if (!container || !Array.isArray(items)) return;
+        items.forEach(text => {
+          if (text === null || text === undefined) return;
+          const li = document.createElement("li");
+          li.textContent = text;
+          container.appendChild(li);
+        });
+        if (container.children.length === 0) {
+          container.remove();
+        }
+      };
+
+      renderParagraphs("body-content", letterContent.bodyParagraphs);
+      renderList("body-list", letterContent.bodyBullets);
+      renderParagraphs("body-post", letterContent.postListParagraphs);
+      renderParagraphs("closing-text", letterContent.closingParagraphs);
+
+      if (typeof window.paginate === "function") {
+        window.paginate();
+      }
+
+      if (window.MathJax?.typesetPromise) {
+        await window.MathJax.typesetPromise([document.getElementById("print-root")]);
+      }
+    });
+  </script>
+</body>
+
+</html>

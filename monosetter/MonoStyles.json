@@ -1,0 +1,63 @@
+{
+  "mobileBorder4": {
+    "label": "Wrapped for mobile / 4-space left border / 39 wide",
+    "exampleInput": "“Proofcase” is a collection of self-contained Rocq developments. Each component is designed to stand independently, typically as a formal companion to a paper, note, or conceptual construction.",
+    "formatter": "mobileBorder4",
+    "settings": {
+      "totalWidth": 39,
+      "leftPadding": 4
+    }
+  },
+  "plain75": {
+    "label": "Plain text / normal / 75 wide",
+    "exampleInput": "This formatter produces plain wrapped text with no surrounding comment box. Paragraphs stay separate, lines are wrapped to width 75, and the right edge remains ragged.",
+    "formatter": "plain75",
+    "settings": {
+      "totalWidth": 75,
+      "justify": false
+    }
+  },
+  "plainJustified75": {
+    "label": "Plain text / justified / 75 wide",
+    "exampleInput": "This formatter produces plain wrapped text with no surrounding comment box. Paragraphs stay separate, lines are wrapped to width 75, and interior lines are justified to a straight right edge.",
+    "formatter": "plainJustified75",
+    "settings": {
+      "totalWidth": 75,
+      "justify": true
+    }
+  },
+  "starredBox75": {
+    "label": "Justified text / starred box / 75 wide",
+    "exampleInput": "There is no finitely supported row `u` whose one-step Rule 30 image is exactly the centered seed row. A single seeded defect cannot be created in one forward step by a finitely supported predecessor.",
+    "formatter": "starredBox75",
+    "settings": {
+      "totalWidth": 75,
+      "margin": 4,
+      "sideLeft": "(*",
+      "sideRight": "*)"
+    }
+  },
+  "centeredBox75": {
+    "label": "Centered text / starred box / 75 wide",
+    "exampleInput": "MAIN RESULT",
+    "formatter": "centeredBox75",
+    "settings": {
+      "totalWidth": 75,
+      "margin": 4,
+      "sideLeft": "(*",
+      "sideRight": "*)"
+    }
+  },
+  "artifactComment39": {
+    "label": "Doc. comment / 2-space pad / 39 wide",
+    "exampleInput": "We strip all factors of 2 from a positive natural number. The fuel parameter bounds the recursion; n itself suffices since div2 strictly decreases positive values.",
+    "formatter": "artifactComment39",
+    "settings": {
+      "textWidth": 39,
+      "opener": "(*",
+      "linePrefix": "│  ",
+      "paragraphBreak": "│",
+      "closer": "*)"
+    }
+  }
+}

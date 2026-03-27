@@ -1,0 +1,392 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}html{font-family:"IBM Plex Mono",monospace;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0} menu,article,aside,details,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:"IBM Plex Mono",monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:"IBM Plex Mono",monospace;font-size:100%;line-height:1.15;margin:0}button,input{}button,select{text-transform:none}[type=submit], [type=reset],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+
+:root {
+	--fontmono: 'IBM Plex Mono';
+	--fontserif: 'IBM Plex Serif';
+	--fontmodern: 'Latin Modern Roman', 'Latin Modern', 'CMU Serif', serif;
+
+	--serif--normal: 3.3mm;
+	--mono-small: 2.8mm;
+	--mono-micro: 2.2mm;
+
+	--mono-big: 3.1mm;
+
+	--m-left: 25mm;
+	--m-right: 20mm;
+	--m-bottom: 25mm;
+
+	--head-h: 45mm;
+
+	--addr-left: 20mm;
+	--addr-top: 27mm;
+	--addr-w: 85mm;
+	--addr-h: 45mm;
+
+	--info-top: 45mm; /* right block top */
+	--info-w: 70mm;
+
+	--body-top: 95mm; /* start of main text baseline */
+	--line: 4.2mm;
+}
+
+
+@media screen {
+	.page::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: url("din") no-repeat 0 0 / 210mm 297mm;
+		opacity: 0.35;
+		pointer-events: none;
+		z-index: 5;
+	}
+	.print-area {
+		position: relative;
+		z-index: 10;
+	}
+}
+
+/* ---------- PAGE SIZE (print) ---------- */
+@page {
+	size: 210mm 297mm;
+	margin: 0mm;
+}
+
+/* ---------- SCREEN PREVIEW ---------- */
+body {
+	background: #f3f4f6;
+	margin: 0;
+	padding: 24px 12px;
+	counter-reset: pageno;
+	font-family: var(--fontmodern);
+	font-weight: 300;
+}
+
+/* single A4 sheet preview */
+.page {
+	width: 210mm;
+	height: 297mm;
+	background: #fff;
+	margin: 0 auto 12mm;
+	box-shadow: 0 6px 22px rgba(0,0,0,.12);
+	position: relative;
+	overflow: hidden;
+	counter-increment: pageno;
+}
+
+/* normal-flow anchor to keep Chrome/Safari stable */
+.print-area {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+/* ---------- DIN 5008 VARIABLES (Form B default) ---------- */
+
+.mark {
+      position: absolute;
+      left: 0mm;
+      width: 8mm;
+      height: 0.1mm;
+      background: #111;
+      opacity: .55;
+}
+.mark.falz1 {
+	top: 87mm;
+}
+.mark.falz2 {
+	top: 192mm;
+}
+.mark.loch {
+      top: 148.5mm;
+      width: 4mm;
+      height: 4mm;
+      background: transparent;
+      border: 0.1mm solid #111;
+      border-radius: 50%;
+      opacity: .55;
+      transform: translateY(-50%);
+}
+
+.box1{
+	position: absolute;
+	top: 20mm;
+	bottom: 20mm;
+	left: 10mm;
+	right: 10mm;
+	/* border: 0.1mm solid black; */
+}
+
+.box2{
+	position: absolute;
+	top: 5mm;
+	bottom: 230mm;
+	left: 10mm;
+	right: 10mm;
+}
+
+.logo-header{
+	position: absolute;
+	left: 10mm;
+	top: 6.5mm;
+	width: 50mm;
+	font-size: var(--mono-small);
+	line-height: 1;
+}
+
+.logo{
+	position: absolute;
+	left: 0mm;
+	top: 0mm;
+	width: 10mm;
+	height: 10mm;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: #000;
+	color: #fff;
+	font-family: var(--fontmono);
+	font-size: 2.4mm;
+	font-weight: 500;
+	letter-spacing: 0.25mm;
+}
+
+.footer {
+	position: absolute;
+	justify-content: center;
+	left: var(--m-left);
+	right: var(--m-right);
+	bottom: 10mm;
+	left: 10mm;
+	line-height: 1.3;
+	font-family: var(--fontmono);
+	font-size: var(--mono-micro);
+	justify-content: space-between;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.window{
+	position: absolute;
+	left: var(--m-left);
+	top: 27mm;
+	width: 80mm;
+	height: 40mm;
+	font-family: var(--fontmono);
+}
+.return{
+	position: absolute;
+	top: -3mm;
+	white-space: pre-line;
+	font-size: var(--mono-micro);
+}
+
+/* address window */
+.note {
+	position: absolute;
+	top: 5mm;
+	font-family: var(--fontmono);
+	font-size: var(--mono-big);
+	white-space: pre-line;
+}
+
+.recipient {
+	position: absolute;
+	top: 15mm;
+	font-family: var(--fontmono);
+	font-size: var(--mono-big);
+	white-space: pre-line;
+}
+
+/* right info block */
+.info {
+	font-family: var(--fontmono);
+	font-weight: 300;
+	position: absolute;
+	right: 15mm;
+	top: 32mm;
+	width: 75mm;
+	font-size: var(--mono-small);
+	line-height: 1;
+}
+
+.date {
+	position: absolute;
+	right: 15mm;
+	top: 32mm;
+	width: 75mm;
+	top: 80mm;
+	font-family: var(--fontmono);
+	font-weight: 300;
+	font-size: var(--mono-big);
+}
+
+.subject {
+	position: absolute;
+	left: var(--m-left);
+	top: 80mm;
+	width: 90mm;
+	font-family: var(--fontmono);
+	font-weight: 300;
+	font-size: var(--mono-big);
+}
+
+dt {
+	float:left;
+	width: 33mm;
+}
+dd {
+	margin:0 0 1.2mm 28mm;
+}
+
+/* body text start */
+main {
+	position: absolute;
+	left: var(--m-left);
+	right: 20mm;
+	top: var(--body-top);
+	bottom: 40mm;
+	font-family: var(--fontmodern);
+	font-size: var(--serif--normal);
+	font-weight: 300;
+	line-height: 1.35;          /* unitless = more stable */
+	display: flow-root;          /* stops margin-collapsing surprises */
+}
+
+/* ensure margins don’t “leak” beyond main’s box */
+main > :first-child {
+	margin-top: 0;
+}
+
+main > :last-child  {
+	margin-bottom: 0;
+}
+
+h1 {
+	font-family: var(--fontmono);
+	margin: 0 0 5mm 0;
+	font-weight: 400;
+}
+
+p {
+	margin: 0 0 4mm 0;
+	font-family: var(--fontserif);
+	text-align: justify;
+
+	
+}
+
+.closing-block {
+	margin-top: 8mm;
+	break-inside: avoid;
+	page-break-inside: avoid;
+}
+
+.signature-name {
+	font-family: var(--fontmodern);
+	font-size: var(--mono-big);
+	margin: 0;
+}
+
+ul {
+	margin: 0 0 4mm 5mm; padding: 0;
+}
+
+li {
+	margin: 0 0 1.5mm 0;
+}
+
+
+.column{
+	display: grid;
+	align-items: start;
+}
+
+.signature{
+	position: relative;
+	width: 44mm;
+	height: 20mm;
+	display: block;
+	margin: 3mm 0 2mm -1mm;
+	background: url("./signature.png") no-repeat left center / contain;
+}
+
+.pageno:after {
+	position: absolute;
+	right: var(--m-right);
+	bottom: 25mm;
+	font-family: var(--fontmono);
+	font-size: var(--mono-small);
+	content: "Page " counter(pageno) " of " attr(data-total);
+}
+
+/* ---------- PRINT RULES ---------- */
+@media print {
+
+	html, body {
+	margin: 0 !important;
+	padding: 0 !important;
+	background: #fff !important;
+	}
+
+	/* Remove screen UI and everything except print-root from layout */
+	body > :not(#print-root) {
+		display: none !important;
+	}
+	.screen-only {
+		display: none !important;
+	}
+
+	/* Important: DO NOT fix the container; allow natural multi-page flow */
+	#print-root {
+		width: auto !important;
+		margin: 0 !important;
+	}
+
+	/* ensure each .page becomes an actual printed page */
+	.page {
+		margin: 0 !important;
+		box-shadow: none !important;
+		break-after: page;
+		page-break-after: always;
+	}
+	.page:last-child {
+		break-after: auto;
+		page-break-after: auto;
+	}
+
+	/* keep basic typographic pagination sane */
+	p, li {
+		orphans: 3;
+		widows: 3;
+	}
+
+	* {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+}

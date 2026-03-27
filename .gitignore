@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100/
+.Trashes
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and local temp files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Common dependency and coverage folders
+node_modules/
+coverage/
