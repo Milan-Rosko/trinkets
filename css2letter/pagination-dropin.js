@@ -198,12 +198,16 @@
       pageIndex++;
     }
 
-    if (typeof window.updateTotalPages === "function") {
-      window.updateTotalPages("#print-root");
-    } else {
-      const total = root.querySelectorAll(".page").length || 1;
-      root.querySelectorAll(".pageno").forEach((el) => (el.dataset.total = String(total)));
-    }
+    updateTotalPages(root);
+  }
+
+  function updateTotalPages(rootEl) {
+    const root = rootEl || document.getElementById("print-root");
+    if (!root) return;
+    const total = root.querySelectorAll(".page").length || 1;
+    root.querySelectorAll(".pageno").forEach((el) => {
+      el.dataset.total = String(total);
+    });
   }
 
   async function paginateWhenReady() {
@@ -226,22 +230,10 @@
   }, 150);
   window.paginate = paginateDropIn;
   window.paginateWhenReady = paginateWhenReady;
+  window.updateTotalPages = updateTotalPages;
 
-  window.addEventListener("DOMContentLoaded", () => {
-    void paginateWhenReady();
-  });
-  window.addEventListener("load", () => {
-    void paginateWhenReady();
-  });
+  // The letter-engine owns the initial trigger (after it has injected
+  // content and MathJax has typeset). We only handle re-layout events here.
   window.addEventListener("resize", repaginate);
   window.addEventListener("beforeprint", paginateDropIn);
-
-  if (document.fonts?.addEventListener) {
-    document.fonts.addEventListener("loadingdone", repaginate);
-    document.fonts.addEventListener("loadingerror", repaginate);
-  } else if (document.fonts?.ready) {
-    document.fonts.ready.then(() => {
-      void paginateWhenReady();
-    });
-  }
 })();

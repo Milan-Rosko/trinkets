@@ -77,105 +77,10 @@
       </div>
     </section>
   </div>
-  <!-- === pagination scripts === -->
-  <script src="./pagination-dropin.js"></script>
+  <!-- Data, then layout engine (pagination), then content engine. -->
   <script src="./letter-content.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const setText = (selector, value) => {
-        const el = document.querySelector(selector);
-        if (el && value !== undefined && value !== null) {
-          el.textContent = value;
-        }
-      };
-
-      setText(".return", letterContent.window.returnLine);
-      setText(".note", letterContent.window.note);
-      setText(".recipient", letterContent.window.recipient);
-      setText(".subject", letterContent.subject);
-      setText(".date", letterContent.date);
-
-      const infoBlock = document.getElementById("info-block");
-      if (infoBlock && Array.isArray(letterContent.info)) {
-        letterContent.info.forEach(item => {
-          if (!item || !item.term) return;
-          const dt = document.createElement("dt");
-          dt.textContent = item.term;
-          const dd = document.createElement("dd");
-          dd.textContent = item.value ?? "";
-          infoBlock.appendChild(dt);
-          infoBlock.appendChild(dd);
-        });
-      }
-
-      const main = document.getElementById("body-main");
-
-      const appendParagraphs = (texts) => {
-        if (!main || !Array.isArray(texts)) return;
-        texts.forEach(text => {
-          if (text === null || text === undefined) return;
-          const p = document.createElement("p");
-          p.textContent = text;
-          main.appendChild(p);
-        });
-      };
-
-      const appendList = (items) => {
-        if (!main || !Array.isArray(items) || items.length === 0) return;
-        const ul = document.createElement("ul");
-        items.forEach(text => {
-          if (text === null || text === undefined) return;
-          const li = document.createElement("li");
-          li.textContent = text;
-          ul.appendChild(li);
-        });
-        if (ul.children.length) main.appendChild(ul);
-      };
-
-      appendParagraphs(letterContent.bodyParagraphs);
-      appendList(letterContent.bodyBullets);
-      appendParagraphs(letterContent.postListParagraphs);
-      appendParagraphs(letterContent.closingParagraphs);
-
-      if (main) {
-        const sig = document.createElement("div");
-        sig.className = "signature";
-        sig.setAttribute("aria-hidden", "true");
-        main.appendChild(sig);
-
-        const sigName = document.createElement("p");
-        sigName.className = "signature-name";
-        sigName.textContent = letterContent.signatureName ?? "";
-        main.appendChild(sigName);
-      }
-
-      if (document.fonts?.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_) {
-          // Continue with current fallback fonts if a webfont fails to load.
-        }
-      }
-
-      if (window.MathJax?.typesetPromise) {
-        await window.MathJax.typesetPromise([document.getElementById("print-root")]);
-      }
-
-      if (document.fonts?.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_) {
-          // MathJax or late font swaps can still finish after initial content render.
-        }
-      }
-
-      if (typeof window.paginateWhenReady === "function") {
-        await window.paginateWhenReady();
-      } else if (typeof window.paginate === "function") {
-        window.paginate();
-      }
-    });
-  </script>
+  <script src="./pagination-dropin.js"></script>
+  <script src="./letter-engine.js"></script>
 </body>
 
 </html>

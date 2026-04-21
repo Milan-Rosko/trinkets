@@ -66,9 +66,9 @@ time, mark, audio, video {
 	/* Body */
 	--body-top: 95mm;
 	--body-top-next: 30mm;
-	--line: 5.2mm;
-	--body-lines-first: 31;   /* 31 × 4.2mm = 130.2mm */
-	--body-lines-next: 46;    /* 46 × 4.2mm = 193.2mm */
+	--line: 5mm;
+	--body-lines-first: 30;   /* 30 × 5mm = 150mm */
+	--body-lines-next: 40;    /* 45 × 5mm = 225mm */
 
 	/* Footer / page number */
 	--footer-bottom: 10mm;
