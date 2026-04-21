@@ -38,13 +38,13 @@
         <div class="box3"></div>
 
         <header class="logo-header">
-          <div class="logo" aria-hidden="true">ACME</div>
-          <div style="position: absolute; left: 13mm; top: 3.6mm;">
-            <div style="font-weight: 300;margin: -0.25mm 0 0.5mm 0">
-              Walter Elias Disney
+          <img class="logo" src="./logo.png" alt="" />
+          <div class="logo-copy">
+            <div class="logo-name">
+              Walter Disnery
             </div>
-            <div style="font-size:2.2mm;">
-              Producer & Entrepreneur
+            <div class="logo-role">
+              Animator & Producer
             </div>
           </div>
         </header>
@@ -56,16 +56,7 @@
         <dl class="info" id="info-block"></dl>
         <div class="subject" data-key="subject"></div>
         <div class="date" data-key="date"></div>
-        <main>
-          <div id="body-content"></div>
-          <ul id="body-list"></ul>
-          <div id="body-post"></div>
-          <div class="closing-block">
-            <div id="closing-text"></div>
-            <div class="signature" aria-hidden="true"></div>
-            <p class="signature-name" data-key="signatureName"></p>
-          </div>
-        </main>
+        <main id="body-main"></main>
         <div class="pageno" data-total="2"></div>
         <div class="footer">
           <div class="column">
@@ -103,7 +94,6 @@
       setText(".recipient", letterContent.window.recipient);
       setText(".subject", letterContent.subject);
       setText(".date", letterContent.date);
-      setText(".signature-name", letterContent.signatureName);
 
       const infoBlock = document.getElementById("info-block");
       if (infoBlock && Array.isArray(letterContent.info)) {
@@ -118,42 +108,71 @@
         });
       }
 
-      const renderParagraphs = (id, texts) => {
-        const container = document.getElementById(id);
-        if (!container || !Array.isArray(texts)) return;
+      const main = document.getElementById("body-main");
+
+      const appendParagraphs = (texts) => {
+        if (!main || !Array.isArray(texts)) return;
         texts.forEach(text => {
           if (text === null || text === undefined) return;
           const p = document.createElement("p");
           p.textContent = text;
-          container.appendChild(p);
+          main.appendChild(p);
         });
       };
 
-      const renderList = (id, items) => {
-        const container = document.getElementById(id);
-        if (!container || !Array.isArray(items)) return;
+      const appendList = (items) => {
+        if (!main || !Array.isArray(items) || items.length === 0) return;
+        const ul = document.createElement("ul");
         items.forEach(text => {
           if (text === null || text === undefined) return;
           const li = document.createElement("li");
           li.textContent = text;
-          container.appendChild(li);
+          ul.appendChild(li);
         });
-        if (container.children.length === 0) {
-          container.remove();
-        }
+        if (ul.children.length) main.appendChild(ul);
       };
 
-      renderParagraphs("body-content", letterContent.bodyParagraphs);
-      renderList("body-list", letterContent.bodyBullets);
-      renderParagraphs("body-post", letterContent.postListParagraphs);
-      renderParagraphs("closing-text", letterContent.closingParagraphs);
+      appendParagraphs(letterContent.bodyParagraphs);
+      appendList(letterContent.bodyBullets);
+      appendParagraphs(letterContent.postListParagraphs);
+      appendParagraphs(letterContent.closingParagraphs);
 
-      if (typeof window.paginate === "function") {
-        window.paginate();
+      if (main) {
+        const sig = document.createElement("div");
+        sig.className = "signature";
+        sig.setAttribute("aria-hidden", "true");
+        main.appendChild(sig);
+
+        const sigName = document.createElement("p");
+        sigName.className = "signature-name";
+        sigName.textContent = letterContent.signatureName ?? "";
+        main.appendChild(sigName);
+      }
+
+      if (document.fonts?.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_) {
+          // Continue with current fallback fonts if a webfont fails to load.
+        }
       }
 
       if (window.MathJax?.typesetPromise) {
         await window.MathJax.typesetPromise([document.getElementById("print-root")]);
+      }
+
+      if (document.fonts?.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_) {
+          // MathJax or late font swaps can still finish after initial content render.
+        }
+      }
+
+      if (typeof window.paginateWhenReady === "function") {
+        await window.paginateWhenReady();
+      } else if (typeof window.paginate === "function") {
+        window.paginate();
       }
     });
   </script>

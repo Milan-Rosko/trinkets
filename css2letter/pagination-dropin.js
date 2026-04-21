@@ -1,4 +1,10 @@
 (function () {
+  function afterNextPaint() {
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+  }
+
   function debounce(fn, ms = 150) {
     let t;
     return (...args) => {
@@ -32,10 +38,7 @@
     // If you want the large letterhead only on page 1, uncomment:
     // removeAll(next, ".logo-header");
 
-    // Adjust main start position for following pages (mirrors your prior page-2 inline override)
-    const main = next.querySelector("main");
-    if (main) main.style.top = "30mm";
-
+    // Following-page layout (top/height) is driven by .page--second CSS.
     return next;
   }
 
@@ -203,10 +206,42 @@
     }
   }
 
-  const repaginate = debounce(paginateDropIn, 150);
-  window.paginate = paginateDropIn;
+  async function paginateWhenReady() {
+    await afterNextPaint();
 
-  window.addEventListener("DOMContentLoaded", paginateDropIn);
+    if (document.fonts?.ready) {
+      try {
+        await document.fonts.ready;
+      } catch (_) {
+        // Ignore font readiness errors and paginate with current metrics.
+      }
+      await afterNextPaint();
+    }
+
+    paginateDropIn();
+  }
+
+  const repaginate = debounce(() => {
+    void paginateWhenReady();
+  }, 150);
+  window.paginate = paginateDropIn;
+  window.paginateWhenReady = paginateWhenReady;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    void paginateWhenReady();
+  });
+  window.addEventListener("load", () => {
+    void paginateWhenReady();
+  });
   window.addEventListener("resize", repaginate);
   window.addEventListener("beforeprint", paginateDropIn);
+
+  if (document.fonts?.addEventListener) {
+    document.fonts.addEventListener("loadingdone", repaginate);
+    document.fonts.addEventListener("loadingerror", repaginate);
+  } else if (document.fonts?.ready) {
+    document.fonts.ready.then(() => {
+      void paginateWhenReady();
+    });
+  }
 })();
