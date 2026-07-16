@@ -11,9 +11,9 @@
            ╲    ╱   ╲    ╱
             ╲        ╲  ╱
      '       ╲▁▁▁▁▁▁▁▁▁╱      `
-     
+
       │      ╭╮     │ ╱     │
-     ╶┼╴     ╰╯     │╱     ─┼─ 
+     ╶┼╴     ╰╯     │╱     ─┼─
       │   │╱ │ ┌──╮ │╲  ╭──╮│  ╭──╮
       │   │  │ │  │ │ ╲ ├──┘│  ╰──╮
       ╰─╯ ╵  ╵ ╵  ╵ ╵  ╲╰──╴╰─╯╰──╯
@@ -22,111 +22,78 @@
     -----
 
     "trinkets" is a small collection
-    of self-contained tools for
-    browser layout, monospaced text
-    shaping, and marked-up source
-    rendering.
+    of focused tools for browser
+    layout, monospaced text shaping,
+    and marked-up source rendering.
 
-    These can be html+js+css, py, etc.
-
-    The tools favor small scope,
-    direct use, and lightweight
-    implementation. Most components
-    are designed to run standalone,
-    either in the browser or from a
-    minimal local script.
+    Each tool is independent. Open a
+    browser entry point directly, or
+    install the Python tool on its
+    own.
 
 
-2 - Tree
+2 - Cabinet
+    -------
+
+    ┌──────────┬──────────────────────┐
+    │css2letter│ A printable DIN 5008 │
+    │          │ letter layout with   │
+    │          │ automatic pagination.│
+    ├──────────┼──────────────────────┤
+    │monosetter│ A browser typesetter │
+    │          │ for fixed-width text │
+    │          │ and comment boxes.   │
+    ├──────────┼──────────────────────┤
+    │monotyper │ A strict compiler for│
+    │          │ marked-up Rocq / Coq │
+    │          │ source comments.     │
+    └──────────┴──────────────────────┘
+
+    Each cabinet contains its own
+    README.md with usage, requirements,
+    and a map of its parts.
+
+
+3 - Tree
     ----
-x
-.
-├── README
-│  ┌─────────────────────────────────┐
-│  │ This file.                      │
-│  └─────────────────────────────────┘
-│
-├── .gitignore
-│  ┌─────────────────────────────────┐
-│  │ Ignores macOS, editor, and      │
-│  │ common temporary files.         │
-│  └─────────────────────────────────┘
-│
-├── monosetter
-│  ╭───╯
-│  │
-│  ├── MonoTypesetter.html
-│  │  ┌──────────────────────────────┐
-│  │  │ Standalone browser tool for  │
-│  │  │ monospaced text formatting.  │
-│  │  │ Choose a style, paste text,  │
-│  │  │ and copy the result.         │
-│  │  └──────────────────────────────┘
-│  │
-│  ╰── MonoStyles.json
-│   ┌────────────────────────────────┐
-│   │ Style presets and example      │
-│   │ inputs for the formatter.      │
-│   └────────────────────────────────┘
-│
-├── monotyper
-│  ╭───╯
-│  │  ┌──────────────────────────────┐
-│  │  │ Python toolchain for         │
-│  │  │ validating and rendering     │
-│  │  │ marked-up Rocq/Coq source    │
-│  │  │ files.                       │
-│  │  └──────────────────────────────┘
-│  │
-│  ├── __Monotyper.command
-│  │  ┌──────────────────────────────┐
-│  │  │ Convenience launcher for     │
-│  │  │ rendering `_INPUT` into      │
-│  │  │ `_OUTPUT`.                   │
-│  │  └──────────────────────────────┘
-│  │
-│  ├── _INPUT/
-│  ├── _OUTPUT/
-│  │  ┌──────────────────────────────┐
-│  │  │ Sample source and sample     │
-│  │  │ rendered output trees.       │
-│  │  └──────────────────────────────┘
-│  │
-│  ├── markup in-out
-│  │  ┌──────────────────────────────┐
-│  │  │ Scratch or reference markup  │
-│  │  │ material.                    │
-│  │  └──────────────────────────────┘
-│  │
-│  ╰── python/
-│   ┌────────────────────────────────┐
-│   │ Implementation modules for     │
-│   │ scanning, parsing, validating, │
-│   │ diagnostics, and rendering.    │
-│   └────────────────────────────────┘
-│
-└── css2letter
-   ╭───╯
-   │  ┌──────────────────────────────┐
-   │  │ Browser-based letter demo    │ 
-   │  │ with DIN-style layout,       │
-   │  │ pagination, and printable    │
-   │  │ output.                      │
-   │  └──────────────────────────────┘
-   │
-   ├── din5008.html
-   ├── din5008.css
-   ├── letter-content.js
-   ├── pagination-dropin.js
-   ├── total-pages.js
-   ├── signature.png
-   ├── din.png
-   └── archive/
+
+    .
+    ├── README
+    ├── css2letter/
+    │   ├── README.md
+    │   ├── index.html
+    │   ├── assets/
+    │   ├── scripts/
+    │   └── styles/
+    ├── monosetter/
+    │   ├── README.md
+    │   └── index.html
+    ├── monotyper/
+    │   ├── README.md
+    │   ├── pyproject.toml
+    │   ├── setup.cfg
+    │   ├── monotyper.command
+    │   ├── examples/
+    │   ├── reference/
+    │   ├── src/monotyper/
+    │   └── tests/
+    └── .github/workflows/quality.yml
 
 
-3 - Author
+4 - Notes
+    -----
+
+    Browser tools need no build step.
+    CSS2Letter loads web fonts and
+    MathJax from the network.
+
+    Monotyper supports Python 3.9+
+    and has no runtime dependencies.
+
+
+5 - Author
     ------
-    
+
     (c)
     ╔════════╤═══════════════╗
     ║ ╭╮╮╮─╮ │               ║

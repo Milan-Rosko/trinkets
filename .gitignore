@@ -23,3 +23,14 @@ temp/
 # Common dependency and coverage folders
 node_modules/
 coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Generated project output
+monotyper/build/

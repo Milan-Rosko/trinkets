@@ -1,0 +1,68 @@
+Monotyper / sparse markup reference
+===================================
+
+Shape
+-----
+
+  (*@name@*)
+  (*@name@[[argument]]@*)
+  (*@name.variant@[[first]][[second]]@*)
+
+Directives open with (*@ and close with @*).
+Arguments are consecutive [[...]] blocks.
+
+
+Primary surface
+---------------
+
+  (*@file@*)
+      Emit a compact comment containing the source filename.
+
+  (*@section@[[Title]]@*)
+      Emit a single-line section box.
+
+  (*@inline@[[Explanation beside the proof.]]@*)
+      Wrap prose as a spare, left-bar comment.
+
+  (*@unicode@[[ A fixed-width Unicode line. ]]@*)
+      Emit one fixed-width Rocq comment per input line.
+
+  (*@unicodemath@[[∀ x, P x → Q x]][[∃ x, P x]]@*)
+      Center one or more mathematical lines in fixed-width comments.
+
+  (*@todo@[[Explain the remaining obligation.]]@*)
+      Emit a conspicuous TODO box.
+
+
+Optional file header
+--------------------
+
+  (*@head.start@*)
+  (*@copyright@*)
+  (*@doc.proofcase@*)
+  (*@doc.header@[[Overview]]@*)
+  (*@doc.pl@[[A short publication summary.]]@*)
+  (*@head.end@*)
+
+The header directives compose into a full document preamble. They are
+independent of the sparse section-and-inline surface used in proof bodies.
+
+
+Specialized comments
+--------------------
+
+  (*@c.standard@[[Ordinary proof commentary.]]@*)
+  (*@c.step@[[2]][[The second proof step.]]@*)
+  (*@c.bridge@[[A]][[A bridge between two proof layers.]]@*)
+  (*@r.owner@[[Owner or provenance text.]]@*)
+
+Fixed genre cards are available as genre.multiplexer, genre.io, genre.api,
+genre.qed, genre.premise, and genre.roadmap.
+
+
+Long-form compatibility surface
+-------------------------------
+
+H.1 through H.4, p.l, p.c, p.j, plist.*, and ptoclist.roman remain available
+for source trees that need a continuous documentation block. The sparse
+surface above is the recommended default for new files.

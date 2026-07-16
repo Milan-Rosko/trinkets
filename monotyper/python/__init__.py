@@ -1,1 +1,0 @@
-"""Monotyper package."""

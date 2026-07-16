@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.command text eol=lf
+*.css text diff=css
+*.html text diff=html
+*.js text
+*.md text diff=markdown
+*.py text diff=python
+*.toml text
+*.v text
+
+*.png binary

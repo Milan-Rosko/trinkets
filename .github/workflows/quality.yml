@@ -1,0 +1,40 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install Monotyper
+        run: python -m pip install --editable ./monotyper
+
+      - name: Run Monotyper tests
+        run: python -m unittest discover monotyper/tests --verbose
+
+      - name: Verify the Monotyper example
+        run: monotyper verify monotyper/examples
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check browser scripts
+        run: |
+          for file in css2letter/scripts/*.js; do
+            node --check "$file"
+          done
