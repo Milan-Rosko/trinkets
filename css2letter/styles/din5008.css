@@ -80,7 +80,7 @@ time, mark, audio, video {
 		content: "";
 		position: absolute;
 		inset: 0;
-		/* background: url("../assets/reference/din.png") no-repeat 0 0 / var(--page-w) var(--page-h); */
+		/* background: url("../assets/reference/din.webp") no-repeat 0 0 / var(--page-w) var(--page-h); */
 		opacity: 0.35;
 		pointer-events: none;
 		z-index: 5;
