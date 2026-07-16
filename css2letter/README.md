@@ -4,14 +4,16 @@ A browser-based DIN 5008-style A4 letter template with automatic pagination, pri
 
 ## Use
 
-Open [`index.html`](index.html) in a current browser. The preview paginates after fonts and mathematics finish rendering; use **Print** to open the browser’s A4 print dialog.
+Open [`composer/index.html`](composer/index.html) in a current browser to start a letter from neutral, self-describing fields. The preview paginates after fonts and mathematics finish rendering; use **Print** to open the browser’s A4 print dialog.
+
+The root [`index.html`](index.html) is the fully populated multi-page demonstration.
 
 No build step is required. An internet connection is needed for the IBM Plex web fonts and MathJax CDN.
 
 ## Customize
 
-- Edit `index.html` for the sender, recipient, metadata, letter paragraphs, signature name, letterhead, and footer.
-- Replace `assets/logo.png` and `assets/signature.png` while keeping their filenames, or update the corresponding references.
+- Edit `composer/index.html` for the sender, recipient, metadata, letter paragraphs, signature name, letterhead, and footer.
+- The composer starts with visible `Logo` and `Signature` text placeholders, so none of the demonstration artwork appears in a new letter. Replace those elements with your own image references when needed; `assets/logo.png` and `assets/signature.png` show the image hooks used by the populated demo.
 - Tune page geometry and typography in `styles/din5008.css`.
 
 Because the letter is written directly in HTML, use ordinary elements such as `<i>` and `<b>` for emphasis. MathJax supports `$inline math$` and `$$display math$$`.
@@ -34,6 +36,8 @@ The stylesheet uses the project’s finalized A4 measurements:
 
 ```text
 css2letter/
+├── composer/
+│   └── index.html
 ├── index.html
 ├── assets/
 │   ├── logo.png
