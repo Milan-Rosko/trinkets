@@ -10,12 +10,11 @@ No build step is required. An internet connection is needed for the IBM Plex web
 
 ## Customize
 
-- Edit `scripts/letter-content.js` for the recipient, subject, body, and signature name.
-- Edit `index.html` for the sender identity, letterhead, and footer.
+- Edit `index.html` for the sender, recipient, metadata, letter paragraphs, signature name, letterhead, and footer.
 - Replace `assets/logo.png` and `assets/signature.png` while keeping their filenames, or update the corresponding references.
 - Tune page geometry and typography in `styles/din5008.css`.
 
-Inline content supports `*italic*`, `**bold**`, `***bold italic***`, `$inline math$`, and `$$display math$$`.
+Because the letter is written directly in HTML, use ordinary elements such as `<i>` and `<b>` for emphasis. MathJax supports `$inline math$` and `$$display math$$`.
 
 ## Geometry
 
@@ -41,7 +40,6 @@ css2letter/
 │   ├── signature.png
 │   └── reference/
 ├── scripts/
-│   ├── letter-content.js
 │   ├── letter-engine.js
 │   └── pagination.js
 └── styles/
