@@ -61,10 +61,12 @@
     ├── README
     ├── css2letter/
     │   ├── README.md
-    │   ├── index.html
-    │   ├── assets/
-    │   ├── scripts/
-    │   └── styles/
+    │   ├── blank.html
+    │   ├── example.html
+    │   └── assets/
+    │       ├── reference/
+    │       ├── scripts/
+    │       └── styles/
     ├── monosetter/
     │   ├── README.md
     │   └── index.html

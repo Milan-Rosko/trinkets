@@ -80,7 +80,7 @@ time, mark, audio, video {
 		content: "";
 		position: absolute;
 		inset: 0;
-		/* background: url("../assets/reference/din.webp") no-repeat 0 0 / var(--page-w) var(--page-h); */
+		/* background: url("../reference/din.webp") no-repeat 0 0 / var(--page-w) var(--page-h); */
 		opacity: 0.35;
 		pointer-events: none;
 		z-index: 5;
@@ -382,7 +382,7 @@ li {
 	height: 20mm;
 	display: block;
 	margin: 3mm 0 2mm -1mm;
-	background: url("../assets/signature.png") no-repeat left center / contain;
+	background: url("../signature.png") no-repeat left center / contain;
 }
 
 .signature--placeholder {
